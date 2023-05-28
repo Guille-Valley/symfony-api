@@ -1,3 +1,4 @@
+.vscode*
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -8,4 +9,6 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-.vscode*
+
+#docker-compose
+mysql
