@@ -1,0 +1,6 @@
+App\Entity\Expedicion:
+  attributes:
+    id:
+      groups: ['expedicion']
+    titulo:
+      groups: ['expedicion']
