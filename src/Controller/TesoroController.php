@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Expedicion;
+use App\Repository\ExpedicionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,26 +14,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class TesoroController extends AbstractController {
 
 
-    #[Route('/tesoro/lista', name: 'tesoro_lista')]
-    public function list(Request $request, LoggerInterface $logger) {
-        $logger->info('probandoo.. 2');
+    #[Route('/tesoros', name: 'tesoros')]
+    public function list(Request $request, ExpedicionRepository $expedicionRepository) {
+       
+       $expediciones = $expedicionRepository->findAll();
+
+        foreach($expediciones as $expedicion ){
+            $expedicionASArray[] = [
+                'id' => $expedicion->getId(),
+                'title' => $expedicion->getTitulo(),
+            ];
+        }
+
         $response = new JsonResponse();
         $response->setData([
             'sucess' => true,
-            'data' => [
-                [
-                    'id' => '1',
-                    'title' => 'La medalla'
-                ],
-                [
-                    'id' => '2',
-                    'title' => 'La espada'
-                ],
-                [
-                    'id' => '3',
-                    'title' => 'La capa'
-                ]
-            ]
+            'data' => $expedicionASArray,
         ]);
         return $response;
     }
